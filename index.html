@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div id="grid-container"></div>
+</body>
+</html>
+
+<style>
+    #grid-container {
+        display: grid;
+        grid-template-rows: 200px 200px 200px 200px;
+    }
+
+    .grid-square {
+        background-color: brown;
+        text-align: center;
+        aspect-ratio:   ; 
+        margin: 1px;
+    }
+</style>
+
+<script>
+    const gridContainer = document.getElementById("grid-container");
+
+    let div = document.createElement("div");
+    let numRows = 16;
+    let gridColumnStyle = "";
+    let gridRowStyle = "";
+
+    for (i=0; i<numRows; i++) {
+        gridColumnStyle += " 50px";
+        gridRowStyle += " 50px";
+    }
+    console.log(gridColumnStyle);
+
+    gridContainer.style.gridTemplateColumns = gridColumnStyle;
+    gridContainer.style.gridTemplateRows = gridRowStyle;
+
+    for (i=0; i<numRows**2; i++) {
+        let div = document.createElement("div");
+        div.textContent = i;
+        div.className = 'grid-square'
+        document.querySelector("#grid-container").appendChild(div);
+    }
+
+</script>
