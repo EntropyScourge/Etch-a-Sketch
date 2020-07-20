@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
 </head>
 <body>
+    <button id="clear-button">Clear</button>
+    <label>
+        Tick to switch from greyscale to random colours.
+        <input type="checkbox" id="toggle">
+    </label>
     <div id="grid-container"></div>
 </body>
 </html>
@@ -11,38 +16,82 @@
 <style>
     #grid-container {
         display: grid;
-        grid-template-rows: 200px 200px 200px 200px;
     }
 
     .grid-square {
-        background-color: brown;
         text-align: center;
-        margin: 1px;
+        border-style: solid;
+        border-width: 1px;
     }
 </style>
 
 <script>
-    const gridContainer = document.getElementById("grid-container");
 
-    let div = document.createElement("div");
-    let numRows = 16;
-    let gridColumnStyle = "";
-    let gridRowStyle = "";
 
-    for (i=0; i<numRows; i++) {
-        gridColumnStyle += " 50px";
-        gridRowStyle += " 50px";
+    function createGrid(numRows){
+        const gridContainer = document.getElementById("grid-container");
+        const div = document.createElement("div");
+
+        let gridColumnStyle = "";
+        let gridRowStyle = "";
+
+        for (i=0; i<numRows; i++) {
+            squareWidth = 960/numRows;
+            gridColumnStyle += " "+squareWidth+"px";
+            gridRowStyle += " "+squareWidth+"px";
+        }
+
+        gridContainer.style.gridTemplateColumns = gridColumnStyle;
+        gridContainer.style.gridTemplateRows = gridRowStyle;
+
+        for (i=0; i<numRows**2; i++) {
+            let div = document.createElement("div");
+            //div.textContent = i;
+            div.className = 'grid-square';
+            div.style.backgroundColor = "rgb(255,255,255)";
+            document.querySelector("#grid-container").appendChild(div);
+        }
+
+
+        const squares = Array.from(document.getElementsByClassName("grid-square"));
+
+        console.log(squares);
+        const toggle = document.getElementById("toggle");
+        
+        squares.forEach(element => {
+            element.addEventListener("mouseover", function() {
+                if (toggle.checked) {
+                    const red = Math.floor(Math.random()*255);
+                    const green = Math.floor(Math.random()*255);
+                    const blue = Math.floor(Math.random()*255);
+                    element.style.backgroundColor = `rgb(${red},${green},${blue})`;
+                }
+                else {
+                    const oldColourArr = element.style.backgroundColor.match(/[0-9]+/g);
+                    let newColourArr = oldColourArr.map(component => {return component - 25});
+                    element.style.backgroundColor = `rgb(${newColourArr.join(", ")})`;
+                }
+            });
+        });
     }
-    console.log(gridColumnStyle);
 
-    gridContainer.style.gridTemplateColumns = gridColumnStyle;
-    gridContainer.style.gridTemplateRows = gridRowStyle;
-
-    for (i=0; i<numRows**2; i++) {
-        let div = document.createElement("div");
-        div.textContent = i;
-        div.className = 'grid-square'
-        document.querySelector("#grid-container").appendChild(div);
+    function resetGrid(){
+        const squares = Array.from(document.getElementsByClassName("grid-square"));
+        
+        squares.forEach(square => {
+            document.getElementById("grid-container").removeChild(square);
+        })
+        
+        const numRows = prompt("How big a grid would you like this time?")
+        createGrid(numRows);
+        squares.forEach(element => {
+            element.style.backgroundColor = "brown";
+        })
     }
+
+    createGrid(16);
+
+    const clearButton = document.getElementById("clear-button");
+    clearButton.addEventListener("click", function(){resetGrid();});
 
 </script>
