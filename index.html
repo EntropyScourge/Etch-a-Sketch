@@ -36,7 +36,7 @@
         let gridRowStyle = "";
 
         for (i=0; i<numRows; i++) {
-            squareWidth = 960/numRows;
+            squareWidth = 800/numRows;
             gridColumnStyle += " "+squareWidth+"px";
             gridRowStyle += " "+squareWidth+"px";
         }
@@ -83,7 +83,11 @@
             document.getElementById("grid-container").removeChild(square);
         })
         
-        const numRows = prompt("How big a grid would you like this time?")
+        let numRows = prompt("How big a grid would you like this time?");
+        while (numRows > 100) {
+            numRows = prompt("That's too big:\nyour computer may not be able to handle it!\nEnter a smaller number");
+            console.log(numRows);
+        }
         createGrid(numRows);
         squares.forEach(element => {
             element.style.backgroundColor = "brown";
