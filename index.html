@@ -70,7 +70,6 @@
                     const oldColourArr = element.style.backgroundColor.match(/[0-9]+/g);
                     const sum = Number(oldColourArr[0])+Number(oldColourArr[1])+Number(oldColourArr[2]);
                     const newColourArr = oldColourArr.map(() => {return Math.floor(sum/3)-25});
-                    console.log(newColourArr);
                     element.style.backgroundColor = `rgb(${newColourArr.join(", ")})`;
                 }
             });
