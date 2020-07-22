@@ -5,11 +5,13 @@
     <title>Etch-a-Sketch that isn't really an Etch-a-Sketch</title>
 </head>
 <body>
-    <button id="clear-button">Clear</button>
-    <label>
-        Tick to switch from greyscale to random colours.
-        <input type="checkbox" id="toggle">
-    </label>
+    <div class=controls-container>
+        <button id="clear-button">Clear</button>
+        <label>
+            Tick to switch from greyscale to random colours.
+            <input type="checkbox" id="toggle">
+        </label>
+    </div>
     <div id="grid-container"></div>
 </body>
 </html>
@@ -17,12 +19,26 @@
 <style>
     #grid-container {
         display: grid;
+        justify-content: center;
+        margin-top: 36px;
     }
 
     .grid-square {
         text-align: center;
         border-style: solid;
         border-width: 1px;
+    }
+
+    .controls-container {
+        text-align: center;
+    }
+
+    #button {
+        margin: auto;
+    }
+
+    label {
+        margin: auto;
     }
 </style>
 
